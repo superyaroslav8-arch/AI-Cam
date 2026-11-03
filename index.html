@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AI Cam" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <title>AI Cam</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="miniRobot" class="mini-robot hidden" aria-hidden="true">
+      <svg viewBox="0 0 120 70" class="mini-face">
+        <ellipse class="m-eye" cx="35" cy="35" rx="22" ry="18" />
+        <ellipse class="m-eye" cx="85" cy="35" rx="22" ry="18" />
+        <circle class="m-pupil" cx="35" cy="38" r="7" />
+        <circle class="m-pupil" cx="85" cy="38" r="7" />
+      </svg>
+    </div>
+
+    <header class="header">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span class="logo-text">AI Cam</span>
+      </div>
+      <div class="header-actions">
+        <button id="btnMute" class="icon-btn" aria-label="Звук" title="Звук">🔊</button>
+        <button id="btnOrient" class="icon-btn" aria-label="Ориентация" title="Поворот">🔄</button>
+      </div>
+    </header>
+
+    <main class="stage" id="stage">
+      <div class="robot-wrap" id="robotWrap">
+        <div class="robot-glow"></div>
+        <svg class="looi-face" id="looiFace" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <g id="leftEyeG">
+            <ellipse class="eye" cx="95" cy="100" rx="58" ry="48" />
+            <ellipse class="pupil" id="leftPupil" cx="95" cy="105" rx="18" ry="20" />
+            <circle class="shine" cx="82" cy="90" r="8" />
+          </g>
+          <g id="rightEyeG">
+            <ellipse class="eye" cx="225" cy="100" rx="58" ry="48" />
+            <ellipse class="pupil" id="rightPupil" cx="225" cy="105" rx="18" ry="20" />
+            <circle class="shine" cx="212" cy="90" r="8" />
+          </g>
+          <g id="mouthLayer">
+            <path id="mouthPath" class="mouth" d="" />
+          </g>
+        </svg>
+        <div class="listening-ring" id="listeningRing"></div>
+        <p class="robot-status" id="robotStatus">Привет! Я AI Cam</p>
+      </div>
+
+      <div id="camLayer" class="cam-layer hidden">
+        <video id="camVideo" playsinline autoplay muted></video>
+        <canvas id="camCanvas" class="hidden"></canvas>
+        <div class="cam-hud">
+          <div class="hud-top">
+            <span id="orientBadge" class="badge">Портрет</span>
+            <span id="modeBadge" class="badge">Авто</span>
+            <span id="recBadge" class="badge rec hidden">● REC</span>
+          </div>
+          <div class="hud-bottom">
+            <button class="hud-btn" id="btnFlipCam" title="Камера">🔄</button>
+            <button class="hud-shutter" id="btnShutter" title="Снимок / Запись"></button>
+            <button class="hud-btn" id="btnCamClose" title="Закрыть">✕</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="panel">
+      <div class="tabs">
+        <button class="tab active" data-tab="home">Робот</button>
+        <button class="tab" data-tab="shoot">Съёмка</button>
+        <button class="tab" data-tab="director">Director</button>
+        <button class="tab" data-tab="apps">Apps</button>
+      </div>
+
+      <div class="pane active" id="pane-home">
+        <p class="lead">Живой оператор в стиле LOOI. Тапни по глазам.</p>
+        <div class="row">
+          <button class="btn primary" id="btnWake">Разбудить</button>
+          <button class="btn" id="btnIdle">Пусть живёт</button>
+        </div>
+        <div class="idle-log" id="idleLog"></div>
+      </div>
+
+      <div class="pane" id="pane-shoot">
+        <div class="row wrap">
+          <button class="chip" data-timer="0">Таймер off</button>
+          <button class="chip active" data-timer="3">3с</button>
+          <button class="chip" data-timer="5">5с</button>
+          <button class="chip" data-timer="10">10с</button>
+        </div>
+        <div class="row">
+          <button class="btn primary" id="btnOpenCam">Открыть камеру</button>
+          <button class="btn" id="btnManual">Ручной: выкл</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="btnPhotoMode">📷 Фото</button>
+          <button class="btn" id="btnVideoMode">🎥 Видео</button>
+        </div>
+        <p class="hint">Робот остаётся мини-лицом поверх камеры. Поверни телефон — подскажет ориентацию.</p>
+        <div id="snapBox" class="snap-box hidden"></div>
+      </div>
+
+      <div class="pane" id="pane-director">
+        <div class="row wrap">
+          <button class="chip dir" data-dir="portrait">Портрет</button>
+          <button class="chip dir" data-dir="cinematic">Кино</button>
+          <button class="chip dir" data-dir="blog">Блог</button>
+          <button class="chip dir" data-dir="product">Предмет</button>
+          <button class="chip dir" data-dir="landscape">Пейзаж</button>
+          <button class="chip dir" data-dir="sport">Спорт</button>
+        </div>
+        <div class="tip-card" id="tipCard">
+          <p class="tip-title">Выбери режим</p>
+          <p class="tip-text">Я подскажу ракурс и движение для селфи-палки / OM5.</p>
+        </div>
+        <button class="btn primary" id="btnNextTip">Следующая подсказка</button>
+      </div>
+
+      <div class="pane" id="pane-apps">
+        <p class="lead">Быстрый запуск приложений</p>
+        <div class="app-grid">
+          <button class="app-card" data-app="camera">📷 Камера iOS</button>
+          <button class="app-card" data-app="mimo">🎛 DJI Mimo</button>
+          <button class="app-card" data-app="photos">🖼 Фото</button>
+          <button class="app-card" data-app="settings">⚙️ Настройки</button>
+        </div>
+        <div class="scenarios">
+          <p class="lead">Сценарии OM5</p>
+          <button class="chip sc" data-sc="orbit">Орбита 360°</button>
+          <button class="chip sc" data-sc="push">Наезд</button>
+          <button class="chip sc" data-sc="reveal">Reveal вверх</button>
+          <button class="chip sc" data-sc="follow">ActiveTrack</button>
+        </div>
+        <p class="scenario-desc" id="scDesc"></p>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
