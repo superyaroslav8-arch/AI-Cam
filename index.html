@@ -15,7 +15,6 @@
 </head>
 <body>
   <div id="app">
-    <!-- LOOI pet: only eyes on black -->
     <main class="stage" id="stage">
       <div class="robot-wrap" id="robotWrap">
         <div class="robot-glow"></div>
@@ -62,15 +61,12 @@
       </svg>
     </div>
 
-    <!-- invisible swipe edges -->
     <div class="edge-right" id="edgeRight" aria-hidden="true"></div>
     <div class="edge-bottom" id="edgeBottom" aria-hidden="true"></div>
-    <!-- almost invisible LOOI-style handle -->
     <button type="button" class="menu-nub" id="menuNub" aria-label="Меню"></button>
 
     <div class="scrim" id="scrim"></div>
 
-    <!-- side panel (swipe from right) -->
     <section class="panel" id="panel">
       <div class="panel-head">
         <span class="panel-title">Cam</span>
@@ -176,6 +172,7 @@
 
     <div class="toast" id="toast"></div>
   </div>
+  <script src="ui-panel.js"></script>
   <script src="app.js"></script>
   <script src="ble/protocol.js"></script>
   <script src="stick.js"></script>
