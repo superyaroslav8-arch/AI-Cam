@@ -30,6 +30,7 @@
         <span class="logo-text">Ai Cam</span>
       </div>
       <div class="header-actions">
+        <button id="btnCall" class="icon-btn" aria-label="Звонок" title="Cam звонит">📞</button>
         <button id="btnMute" class="icon-btn" aria-label="Звук" title="Звук">🔊</button>
         <button id="btnOrient" class="icon-btn" aria-label="Ориентация" title="Поворот">🔄</button>
       </div>
@@ -77,19 +78,48 @@
 
     <section class="panel">
       <div class="tabs">
-        <button class="tab active" data-tab="home">Робот</button>
+        <button class="tab active" data-tab="home">Cam</button>
+        <button class="tab" data-tab="stick">Палка</button>
         <button class="tab" data-tab="shoot">Съёмка</button>
         <button class="tab" data-tab="director">Director</button>
         <button class="tab" data-tab="apps">Apps</button>
       </div>
 
       <div class="pane active" id="pane-home">
-        <p class="lead">Cam — живой оператор в стиле LOOI. Тапни по глазам.</p>
+        <p class="lead">Cam — живой оператор Ai Cam. Тапни по глазам.</p>
         <div class="row">
           <button class="btn primary" id="btnWake">Разбудить</button>
           <button class="btn" id="btnIdle">Пусть живёт</button>
         </div>
+        <div class="row">
+          <button class="btn" id="btnCallPanel">📞 Cam звонит</button>
+        </div>
         <div class="idle-log" id="idleLog"></div>
+      </div>
+
+      <div class="pane" id="pane-stick">
+        <p class="lead">Селфи-палка / DJI OM5 — Cam ведёт съёмку</p>
+        <p class="hint" id="bleStatus">Bluetooth: проверка…</p>
+        <div class="row">
+          <button class="btn primary" id="btnBleConnect">Подключить BLE</button>
+          <button class="btn" id="btnOpenMimo">Открыть Mimo</button>
+        </div>
+        <p class="lead">Команды Cam (голос + глаза)</p>
+        <div class="row wrap">
+          <button class="chip cmd" data-cmd="left">← Влево</button>
+          <button class="chip cmd" data-cmd="right">Вправо →</button>
+          <button class="chip cmd" data-cmd="up">↑ Вверх</button>
+          <button class="chip cmd" data-cmd="down">↓ Вниз</button>
+          <button class="chip cmd" data-cmd="orbit">Орбита</button>
+          <button class="chip cmd" data-cmd="push">Наезд</button>
+          <button class="chip cmd" data-cmd="stop">Стоп</button>
+          <button class="chip cmd" data-cmd="track">ActiveTrack</button>
+        </div>
+        <p class="hint">Safari сам BLE не даёт. Если «Подключить BLE» не сработает — поставь <b>beacio</b> из App Store (полифилл Web Bluetooth) или работай через Mimo. Cam всё равно диктует движение.</p>
+        <div class="tip-card" id="stickCard">
+          <p class="tip-title">Режим палки</p>
+          <p class="tip-text">Выбери команду — Cam скажет и покажет глазами направление.</p>
+        </div>
       </div>
 
       <div class="pane" id="pane-shoot">
@@ -107,7 +137,7 @@
           <button class="btn" id="btnPhotoMode">📷 Фото</button>
           <button class="btn" id="btnVideoMode">🎥 Видео</button>
         </div>
-        <p class="hint">Cam остаётся мини-лицом поверх камеры. Поверни телефон — подскажет ориентацию.</p>
+        <p class="hint">Cam остаётся мини-лицом поверх камеры.</p>
         <div id="snapBox" class="snap-box hidden"></div>
       </div>
 
@@ -122,27 +152,24 @@
         </div>
         <div class="tip-card" id="tipCard">
           <p class="tip-title">Выбери режим</p>
-          <p class="tip-text">Cam подскажет ракурс и движение для селфи-палки / OM5.</p>
+          <p class="tip-text">Cam подскажет ракурс для палки / OM5.</p>
         </div>
         <button class="btn primary" id="btnNextTip">Следующая подсказка</button>
       </div>
 
       <div class="pane" id="pane-apps">
-        <p class="lead">Быстрый запуск приложений</p>
+        <p class="lead">Приложения и звонок</p>
         <div class="app-grid">
-          <button class="app-card" data-app="camera">📷 Камера iOS</button>
+          <button class="app-card" data-app="camera">📷 Камера</button>
           <button class="app-card" data-app="mimo">🎛 DJI Mimo</button>
           <button class="app-card" data-app="photos">🖼 Фото</button>
-          <button class="app-card" data-app="settings">⚙️ Настройки</button>
+          <button class="app-card" data-app="phone">📞 Телефон</button>
         </div>
-        <div class="scenarios">
-          <p class="lead">Сценарии OM5</p>
-          <button class="chip sc" data-sc="orbit">Орбита 360°</button>
-          <button class="chip sc" data-sc="push">Наезд</button>
-          <button class="chip sc" data-sc="reveal">Reveal вверх</button>
-          <button class="chip sc" data-sc="follow">ActiveTrack</button>
+        <div class="row">
+          <input id="callNumber" class="call-input" type="tel" placeholder="Номер для звонка" inputmode="tel" />
+          <button class="btn primary" id="btnDial">Позвонить</button>
         </div>
-        <p class="scenario-desc" id="scDesc"></p>
+        <p class="hint">Cam может открыть набор номера. Введи номер и нажми «Позвонить».</p>
       </div>
     </section>
 
