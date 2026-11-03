@@ -98,13 +98,13 @@
       </div>
 
       <div class="pane" id="pane-stick">
-        <p class="lead">Селфи-палка / DJI OM5 — Cam ведёт съёмку</p>
+        <p class="lead">Селфи-палка / DJI OM5 — это тело Cam</p>
         <p class="hint" id="bleStatus">Bluetooth: проверка…</p>
         <div class="row">
           <button class="btn primary" id="btnBleConnect">Подключить BLE</button>
           <button class="btn" id="btnOpenMimo">Открыть Mimo</button>
         </div>
-        <p class="lead">Команды Cam (голос + глаза)</p>
+        <p class="lead">Команды телу</p>
         <div class="row wrap">
           <button class="chip cmd" data-cmd="left">← Влево</button>
           <button class="chip cmd" data-cmd="right">Вправо →</button>
@@ -115,10 +115,10 @@
           <button class="chip cmd" data-cmd="stop">Стоп</button>
           <button class="chip cmd" data-cmd="track">ActiveTrack</button>
         </div>
-        <p class="hint">Safari сам BLE не даёт. Если «Подключить BLE» не сработает — поставь <b>beacio</b> из App Store (полифилл Web Bluetooth) или работай через Mimo. Cam всё равно диктует движение.</p>
+        <p class="hint">1) Закрой Mimo. 2) Подключи BLE (Chrome / beacio) или собери <b>ios-bridge</b> в Xcode. 3) Жми направление — уходят DUML-пакеты на fff5. OM5 может отличаться от OM3/4.</p>
         <div class="tip-card" id="stickCard">
-          <p class="tip-title">Режим палки</p>
-          <p class="tip-text">Выбери команду — Cam скажет и покажет глазами направление.</p>
+          <p class="tip-title">Тело</p>
+          <p class="tip-text">Подключи палку — Cam шлёт команды на моторы.</p>
         </div>
       </div>
 
@@ -176,6 +176,7 @@
     <div class="toast" id="toast"></div>
   </div>
   <script src="app.js"></script>
+  <script src="ble/protocol.js"></script>
   <script src="stick.js"></script>
 </body>
 </html>
