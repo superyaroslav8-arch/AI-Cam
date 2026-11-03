@@ -15,27 +15,7 @@
 </head>
 <body>
   <div id="app">
-    <div id="miniRobot" class="mini-robot hidden" aria-hidden="true">
-      <svg viewBox="0 0 120 70" class="mini-face">
-        <ellipse class="m-eye" cx="35" cy="35" rx="22" ry="18" />
-        <ellipse class="m-eye" cx="85" cy="35" rx="22" ry="18" />
-        <circle class="m-pupil" cx="35" cy="38" r="7" />
-        <circle class="m-pupil" cx="85" cy="38" r="7" />
-      </svg>
-    </div>
-
-    <header class="header">
-      <div class="logo">
-        <img class="logo-img" src="assets/icon.svg" alt="Cam" width="28" height="28" />
-        <span class="logo-text">Ai Cam</span>
-      </div>
-      <div class="header-actions">
-        <button id="btnCall" class="icon-btn" aria-label="Звонок" title="Cam звонит">📞</button>
-        <button id="btnMute" class="icon-btn" aria-label="Звук" title="Звук">🔊</button>
-        <button id="btnOrient" class="icon-btn" aria-label="Ориентация" title="Поворот">🔄</button>
-      </div>
-    </header>
-
+    <!-- LOOI pet: only eyes on black -->
     <main class="stage" id="stage">
       <div class="robot-wrap" id="robotWrap">
         <div class="robot-glow"></div>
@@ -50,12 +30,9 @@
             <ellipse class="pupil" id="rightPupil" cx="225" cy="105" rx="18" ry="20" />
             <circle class="shine" cx="212" cy="90" r="8" />
           </g>
-          <g id="mouthLayer">
-            <path id="mouthPath" class="mouth" d="" />
-          </g>
         </svg>
         <div class="listening-ring" id="listeningRing"></div>
-        <p class="robot-status" id="robotStatus">Привет! Я Cam</p>
+        <p class="robot-status fade" id="robotStatus"></p>
       </div>
 
       <div id="camLayer" class="cam-layer hidden">
@@ -69,14 +46,42 @@
           </div>
           <div class="hud-bottom">
             <button class="hud-btn" id="btnFlipCam" title="Камера">🔄</button>
-            <button class="hud-shutter" id="btnShutter" title="Снимок / Запись"></button>
+            <button class="hud-shutter" id="btnShutter" title="Снимок"></button>
             <button class="hud-btn" id="btnCamClose" title="Закрыть">✕</button>
           </div>
         </div>
       </div>
     </main>
 
-    <section class="panel">
+    <div id="miniRobot" class="mini-robot hidden" aria-hidden="true">
+      <svg viewBox="0 0 120 70" class="mini-face">
+        <ellipse class="m-eye" cx="35" cy="35" rx="22" ry="18" />
+        <ellipse class="m-eye" cx="85" cy="35" rx="22" ry="18" />
+        <circle class="m-pupil" cx="35" cy="38" r="7" />
+        <circle class="m-pupil" cx="85" cy="38" r="7" />
+      </svg>
+    </div>
+
+    <!-- invisible swipe edges -->
+    <div class="edge-right" id="edgeRight" aria-hidden="true"></div>
+    <div class="edge-bottom" id="edgeBottom" aria-hidden="true"></div>
+    <!-- almost invisible LOOI-style handle -->
+    <button type="button" class="menu-nub" id="menuNub" aria-label="Меню"></button>
+
+    <div class="scrim" id="scrim"></div>
+
+    <!-- side panel (swipe from right) -->
+    <section class="panel" id="panel">
+      <div class="panel-head">
+        <span class="panel-title">Cam</span>
+        <div class="header-actions">
+          <button id="btnCall" class="icon-btn" aria-label="Звонок">📞</button>
+          <button id="btnMute" class="icon-btn" aria-label="Звук">🔊</button>
+          <button id="btnOrient" class="icon-btn" aria-label="Ориентация">🔄</button>
+          <button type="button" class="panel-close" id="panelClose" aria-label="Закрыть">✕</button>
+        </div>
+      </div>
+
       <div class="tabs">
         <button class="tab active" data-tab="home">Cam</button>
         <button class="tab" data-tab="stick">Палка</button>
@@ -86,10 +91,10 @@
       </div>
 
       <div class="pane active" id="pane-home">
-        <p class="lead">Cam — живой оператор Ai Cam. Тапни по глазам.</p>
+        <p class="lead">Питомец как LOOI. Свайп справа — меню. Тап по глазам.</p>
         <div class="row">
           <button class="btn primary" id="btnWake">Разбудить</button>
-          <button class="btn" id="btnIdle">Пусть живёт</button>
+          <button class="btn" id="btnIdle">Живёт сам</button>
         </div>
         <div class="row">
           <button class="btn" id="btnCallPanel">📞 Cam звонит</button>
@@ -98,46 +103,44 @@
       </div>
 
       <div class="pane" id="pane-stick">
-        <p class="lead">Селфи-палка / DJI OM5 — это тело Cam</p>
-        <p class="hint" id="bleStatus">Bluetooth: проверка…</p>
+        <p class="lead">OM5 — тело Cam</p>
+        <p class="hint" id="bleStatus">Bluetooth: …</p>
         <div class="row">
           <button class="btn primary" id="btnBleConnect">Подключить BLE</button>
-          <button class="btn" id="btnOpenMimo">Открыть Mimo</button>
+          <button class="btn" id="btnOpenMimo">Mimo</button>
         </div>
-        <p class="lead">Команды телу</p>
         <div class="row wrap">
-          <button class="chip cmd" data-cmd="left">← Влево</button>
-          <button class="chip cmd" data-cmd="right">Вправо →</button>
-          <button class="chip cmd" data-cmd="up">↑ Вверх</button>
-          <button class="chip cmd" data-cmd="down">↓ Вниз</button>
+          <button class="chip cmd" data-cmd="left">←</button>
+          <button class="chip cmd" data-cmd="right">→</button>
+          <button class="chip cmd" data-cmd="up">↑</button>
+          <button class="chip cmd" data-cmd="down">↓</button>
           <button class="chip cmd" data-cmd="orbit">Орбита</button>
           <button class="chip cmd" data-cmd="push">Наезд</button>
           <button class="chip cmd" data-cmd="stop">Стоп</button>
-          <button class="chip cmd" data-cmd="track">ActiveTrack</button>
+          <button class="chip cmd" data-cmd="track">Track</button>
         </div>
-        <p class="hint">1) Закрой Mimo. 2) Подключи BLE (Chrome / beacio) или собери <b>ios-bridge</b> в Xcode. 3) Жми направление — уходят DUML-пакеты на fff5. OM5 может отличаться от OM3/4.</p>
+        <p class="hint">Закрой Mimo перед BLE. На iPhone лучше ios-bridge / beacio.</p>
         <div class="tip-card" id="stickCard">
           <p class="tip-title">Тело</p>
-          <p class="tip-text">Подключи палку — Cam шлёт команды на моторы.</p>
+          <p class="tip-text">Команда уходит на палку, если BLE на связи.</p>
         </div>
       </div>
 
       <div class="pane" id="pane-shoot">
         <div class="row wrap">
-          <button class="chip" data-timer="0">Таймер off</button>
+          <button class="chip" data-timer="0">off</button>
           <button class="chip active" data-timer="3">3с</button>
           <button class="chip" data-timer="5">5с</button>
           <button class="chip" data-timer="10">10с</button>
         </div>
         <div class="row">
-          <button class="btn primary" id="btnOpenCam">Открыть камеру</button>
+          <button class="btn primary" id="btnOpenCam">Камера</button>
           <button class="btn" id="btnManual">Ручной: выкл</button>
         </div>
         <div class="row">
           <button class="btn" id="btnPhotoMode">📷 Фото</button>
           <button class="btn" id="btnVideoMode">🎥 Видео</button>
         </div>
-        <p class="hint">Cam остаётся мини-лицом поверх камеры.</p>
         <div id="snapBox" class="snap-box hidden"></div>
       </div>
 
@@ -151,25 +154,23 @@
           <button class="chip dir" data-dir="sport">Спорт</button>
         </div>
         <div class="tip-card" id="tipCard">
-          <p class="tip-title">Выбери режим</p>
-          <p class="tip-text">Cam подскажет ракурс для палки / OM5.</p>
+          <p class="tip-title">Режим</p>
+          <p class="tip-text">Выбери — Cam подскажет кадр.</p>
         </div>
-        <button class="btn primary" id="btnNextTip">Следующая подсказка</button>
+        <button class="btn primary" id="btnNextTip">Дальше</button>
       </div>
 
       <div class="pane" id="pane-apps">
-        <p class="lead">Приложения и звонок</p>
         <div class="app-grid">
           <button class="app-card" data-app="camera">📷 Камера</button>
-          <button class="app-card" data-app="mimo">🎛 DJI Mimo</button>
+          <button class="app-card" data-app="mimo">🎛 Mimo</button>
           <button class="app-card" data-app="photos">🖼 Фото</button>
           <button class="app-card" data-app="phone">📞 Телефон</button>
         </div>
         <div class="row">
-          <input id="callNumber" class="call-input" type="tel" placeholder="Номер для звонка" inputmode="tel" />
+          <input id="callNumber" class="call-input" type="tel" placeholder="Номер" inputmode="tel" />
           <button class="btn primary" id="btnDial">Позвонить</button>
         </div>
-        <p class="hint">Cam может открыть набор номера. Введи номер и нажми «Позвонить».</p>
       </div>
     </section>
 
