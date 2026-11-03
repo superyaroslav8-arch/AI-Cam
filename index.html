@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AI Cam" />
+  <meta name="apple-mobile-web-app-title" content="Cam" />
   <meta name="theme-color" content="#000000" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="assets/icon.svg" />
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
-  <title>AI Cam</title>
+  <title>Ai Cam</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -26,8 +26,8 @@
 
     <header class="header">
       <div class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">AI Cam</span>
+        <img class="logo-img" src="assets/icon.svg" alt="Cam" width="28" height="28" />
+        <span class="logo-text">Ai Cam</span>
       </div>
       <div class="header-actions">
         <button id="btnMute" class="icon-btn" aria-label="Звук" title="Звук">🔊</button>
@@ -54,7 +54,7 @@
           </g>
         </svg>
         <div class="listening-ring" id="listeningRing"></div>
-        <p class="robot-status" id="robotStatus">Привет! Я AI Cam</p>
+        <p class="robot-status" id="robotStatus">Привет! Я Cam</p>
       </div>
 
       <div id="camLayer" class="cam-layer hidden">
@@ -84,7 +84,7 @@
       </div>
 
       <div class="pane active" id="pane-home">
-        <p class="lead">Живой оператор в стиле LOOI. Тапни по глазам.</p>
+        <p class="lead">Cam — живой оператор в стиле LOOI. Тапни по глазам.</p>
         <div class="row">
           <button class="btn primary" id="btnWake">Разбудить</button>
           <button class="btn" id="btnIdle">Пусть живёт</button>
@@ -107,7 +107,7 @@
           <button class="btn" id="btnPhotoMode">📷 Фото</button>
           <button class="btn" id="btnVideoMode">🎥 Видео</button>
         </div>
-        <p class="hint">Робот остаётся мини-лицом поверх камеры. Поверни телефон — подскажет ориентацию.</p>
+        <p class="hint">Cam остаётся мини-лицом поверх камеры. Поверни телефон — подскажет ориентацию.</p>
         <div id="snapBox" class="snap-box hidden"></div>
       </div>
 
@@ -122,7 +122,7 @@
         </div>
         <div class="tip-card" id="tipCard">
           <p class="tip-title">Выбери режим</p>
-          <p class="tip-text">Я подскажу ракурс и движение для селфи-палки / OM5.</p>
+          <p class="tip-text">Cam подскажет ракурс и движение для селфи-палки / OM5.</p>
         </div>
         <button class="btn primary" id="btnNextTip">Следующая подсказка</button>
       </div>

@@ -1,7 +1,7 @@
 {
-  "name": "AI Cam",
-  "short_name": "AI Cam",
-  "description": "Живой робот-оператор в стиле LOOI для съёмки на iPhone и селфи-палки",
+  "name": "Ai Cam",
+  "short_name": "Cam",
+  "description": "Cam — живой робот-оператор в стиле LOOI для съёмки на iPhone и селфи-палки",
   "start_url": "./",
   "display": "standalone",
   "orientation": "any",
