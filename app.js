@@ -1,5 +1,5 @@
 /**
- * AI Cam — LOOI-style robot operator for iPhone + selfie stick / OM5
+ * Ai Cam (Cam) — LOOI-style robot operator for iPhone + selfie stick / OM5
  */
 (() => {
   'use strict';
@@ -297,7 +297,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'aicam-' + Date.now() + '.webm';
+      a.download = 'cam-' + Date.now() + '.webm';
       a.click();
       toast('Видео сохранено');
     };
@@ -398,6 +398,6 @@
     });
   }
 
-  setStatus('Привет! Я AI Cam — оператор в стиле LOOI');
-  setTimeout(() => speak('Привет! Я AI Cam'), 600);
+  setStatus('Привет! Я Cam — оператор Ai Cam');
+  setTimeout(() => speak('Привет! Я Cam'), 600);
 })();
