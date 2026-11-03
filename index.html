@@ -31,7 +31,8 @@
           </g>
         </svg>
         <div class="listening-ring" id="listeningRing"></div>
-        <p class="robot-status fade" id="robotStatus"></p>
+        <p class="robot-status" id="robotStatus">Тапни глаза или 🎤</p>
+        <p class="hint-line" id="hintLine">Удержи глаза → говори · 🎤 микрофон</p>
       </div>
 
       <div id="camLayer" class="cam-layer hidden">
@@ -44,9 +45,9 @@
             <span id="recBadge" class="badge rec hidden">● REC</span>
           </div>
           <div class="hud-bottom">
-            <button class="hud-btn" id="btnFlipCam" title="Камера">🔄</button>
-            <button class="hud-shutter" id="btnShutter" title="Снимок"></button>
-            <button class="hud-btn" id="btnCamClose" title="Закрыть">✕</button>
+            <button class="hud-btn" id="btnFlipCam" type="button">🔄</button>
+            <button class="hud-shutter" id="btnShutter" type="button"></button>
+            <button class="hud-btn" id="btnCamClose" type="button">✕</button>
           </div>
         </div>
       </div>
@@ -61,6 +62,8 @@
       </svg>
     </div>
 
+    <button type="button" class="mic-fab" id="micFab" aria-label="Голос">🎤</button>
+
     <div class="edge-right" id="edgeRight" aria-hidden="true"></div>
     <div class="edge-bottom" id="edgeBottom" aria-hidden="true"></div>
     <button type="button" class="menu-nub" id="menuNub" aria-label="Меню"></button>
@@ -71,29 +74,30 @@
       <div class="panel-head">
         <span class="panel-title">Cam</span>
         <div class="header-actions">
-          <button id="btnCall" class="icon-btn" aria-label="Звонок">📞</button>
-          <button id="btnMute" class="icon-btn" aria-label="Звук">🔊</button>
-          <button id="btnOrient" class="icon-btn" aria-label="Ориентация">🔄</button>
-          <button type="button" class="panel-close" id="panelClose" aria-label="Закрыть">✕</button>
+          <button id="btnCall" class="icon-btn" type="button">📞</button>
+          <button id="btnMute" class="icon-btn" type="button">🔊</button>
+          <button id="btnOrient" class="icon-btn" type="button">🔄</button>
+          <button type="button" class="panel-close" id="panelClose">✕</button>
         </div>
       </div>
 
       <div class="tabs">
-        <button class="tab active" data-tab="home">Cam</button>
-        <button class="tab" data-tab="stick">Палка</button>
-        <button class="tab" data-tab="shoot">Съёмка</button>
-        <button class="tab" data-tab="director">Director</button>
-        <button class="tab" data-tab="apps">Apps</button>
+        <button class="tab active" data-tab="home" type="button">Cam</button>
+        <button class="tab" data-tab="stick" type="button">Палка</button>
+        <button class="tab" data-tab="shoot" type="button">Съёмка</button>
+        <button class="tab" data-tab="director" type="button">Director</button>
+        <button class="tab" data-tab="apps" type="button">Apps</button>
       </div>
 
       <div class="pane active" id="pane-home">
-        <p class="lead">Питомец как LOOI. Свайп справа — меню. Тап по глазам.</p>
+        <p class="lead">Голос: удержи глаза или жми 🎤</p>
+        <p class="hint">Команды: фото, камера, влево, портрет, что видишь, меню, mimo</p>
         <div class="row">
-          <button class="btn primary" id="btnWake">Разбудить</button>
-          <button class="btn" id="btnIdle">Живёт сам</button>
+          <button class="btn primary" id="btnWake" type="button">Разбудить</button>
+          <button class="btn" id="btnIdle" type="button">Сам</button>
         </div>
         <div class="row">
-          <button class="btn" id="btnCallPanel">📞 Cam звонит</button>
+          <button class="btn" id="btnCallPanel" type="button">📞 Cam звонит</button>
         </div>
         <div class="idle-log" id="idleLog"></div>
       </div>
@@ -102,70 +106,69 @@
         <p class="lead">OM5 — тело Cam</p>
         <p class="hint" id="bleStatus">Bluetooth: …</p>
         <div class="row">
-          <button class="btn primary" id="btnBleConnect">Подключить BLE</button>
-          <button class="btn" id="btnOpenMimo">Mimo</button>
+          <button class="btn primary" id="btnBleConnect" type="button">Подключить BLE</button>
+          <button class="btn" id="btnOpenMimo" type="button">Mimo</button>
         </div>
         <div class="row wrap">
-          <button class="chip cmd" data-cmd="left">←</button>
-          <button class="chip cmd" data-cmd="right">→</button>
-          <button class="chip cmd" data-cmd="up">↑</button>
-          <button class="chip cmd" data-cmd="down">↓</button>
-          <button class="chip cmd" data-cmd="orbit">Орбита</button>
-          <button class="chip cmd" data-cmd="push">Наезд</button>
-          <button class="chip cmd" data-cmd="stop">Стоп</button>
-          <button class="chip cmd" data-cmd="track">Track</button>
+          <button class="chip cmd" data-cmd="left" type="button">←</button>
+          <button class="chip cmd" data-cmd="right" type="button">→</button>
+          <button class="chip cmd" data-cmd="up" type="button">↑</button>
+          <button class="chip cmd" data-cmd="down" type="button">↓</button>
+          <button class="chip cmd" data-cmd="orbit" type="button">Орбита</button>
+          <button class="chip cmd" data-cmd="push" type="button">Наезд</button>
+          <button class="chip cmd" data-cmd="stop" type="button">Стоп</button>
+          <button class="chip cmd" data-cmd="track" type="button">Track</button>
         </div>
-        <p class="hint">Закрой Mimo перед BLE. На iPhone лучше ios-bridge / beacio.</p>
         <div class="tip-card" id="stickCard">
           <p class="tip-title">Тело</p>
-          <p class="tip-text">Команда уходит на палку, если BLE на связи.</p>
+          <p class="tip-text">BLE или голос «влево» + Mimo.</p>
         </div>
       </div>
 
       <div class="pane" id="pane-shoot">
         <div class="row wrap">
-          <button class="chip" data-timer="0">off</button>
-          <button class="chip active" data-timer="3">3с</button>
-          <button class="chip" data-timer="5">5с</button>
-          <button class="chip" data-timer="10">10с</button>
+          <button class="chip" data-timer="0" type="button">off</button>
+          <button class="chip active" data-timer="3" type="button">3с</button>
+          <button class="chip" data-timer="5" type="button">5с</button>
+          <button class="chip" data-timer="10" type="button">10с</button>
         </div>
         <div class="row">
-          <button class="btn primary" id="btnOpenCam">Камера</button>
-          <button class="btn" id="btnManual">Ручной: выкл</button>
+          <button class="btn primary" id="btnOpenCam" type="button">Камера</button>
+          <button class="btn" id="btnManual" type="button">Ручной: выкл</button>
         </div>
         <div class="row">
-          <button class="btn" id="btnPhotoMode">📷 Фото</button>
-          <button class="btn" id="btnVideoMode">🎥 Видео</button>
+          <button class="btn" id="btnPhotoMode" type="button">📷 Фото</button>
+          <button class="btn" id="btnVideoMode" type="button">🎥 Видео</button>
         </div>
         <div id="snapBox" class="snap-box hidden"></div>
       </div>
 
       <div class="pane" id="pane-director">
         <div class="row wrap">
-          <button class="chip dir" data-dir="portrait">Портрет</button>
-          <button class="chip dir" data-dir="cinematic">Кино</button>
-          <button class="chip dir" data-dir="blog">Блог</button>
-          <button class="chip dir" data-dir="product">Предмет</button>
-          <button class="chip dir" data-dir="landscape">Пейзаж</button>
-          <button class="chip dir" data-dir="sport">Спорт</button>
+          <button class="chip dir" data-dir="portrait" type="button">Портрет</button>
+          <button class="chip dir" data-dir="cinematic" type="button">Кино</button>
+          <button class="chip dir" data-dir="blog" type="button">Блог</button>
+          <button class="chip dir" data-dir="product" type="button">Предмет</button>
+          <button class="chip dir" data-dir="landscape" type="button">Пейзаж</button>
+          <button class="chip dir" data-dir="sport" type="button">Спорт</button>
         </div>
         <div class="tip-card" id="tipCard">
           <p class="tip-title">Режим</p>
-          <p class="tip-text">Выбери — Cam подскажет кадр.</p>
+          <p class="tip-text">Или скажи «портрет»</p>
         </div>
-        <button class="btn primary" id="btnNextTip">Дальше</button>
+        <button class="btn primary" id="btnNextTip" type="button">Дальше</button>
       </div>
 
       <div class="pane" id="pane-apps">
         <div class="app-grid">
-          <button class="app-card" data-app="camera">📷 Камера</button>
-          <button class="app-card" data-app="mimo">🎛 Mimo</button>
-          <button class="app-card" data-app="photos">🖼 Фото</button>
-          <button class="app-card" data-app="phone">📞 Телефон</button>
+          <button class="app-card" data-app="camera" type="button">📷 Камера</button>
+          <button class="app-card" data-app="mimo" type="button">🎛 Mimo</button>
+          <button class="app-card" data-app="photos" type="button">🖼 Фото</button>
+          <button class="app-card" data-app="phone" type="button">📞 Телефон</button>
         </div>
         <div class="row">
           <input id="callNumber" class="call-input" type="tel" placeholder="Номер" inputmode="tel" />
-          <button class="btn primary" id="btnDial">Позвонить</button>
+          <button class="btn primary" id="btnDial" type="button">Позвонить</button>
         </div>
       </div>
     </section>

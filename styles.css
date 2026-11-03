@@ -24,7 +24,6 @@ html, body {
   background: #000;
 }
 
-/* —— LOOI pet: only eyes —— */
 .stage {
   position: absolute;
   inset: 0;
@@ -58,7 +57,6 @@ html, body {
 .eye { fill: #00dcff; }
 .pupil { fill: #030a14; transition: transform 0.14s ease-out; }
 .shine { fill: rgba(255,255,255,0.92); }
-.mouth { fill: none; stroke: #00dcff; stroke-width: 3; stroke-linecap: round; opacity: 0.85; }
 .looi-face.blink .eye { transform-origin: center; animation: blink 0.13s ease; }
 @keyframes blink {
   0%, 100% { transform: scaleY(1); }
@@ -70,27 +68,58 @@ html, body {
   pointer-events: none;
 }
 .listening-ring.active {
-  border-color: rgba(0,220,255,0.5);
-  animation: ring 1.2s ease-out infinite;
+  border-color: rgba(0,220,255,0.55);
+  animation: ring 1.1s ease-out infinite;
 }
 @keyframes ring {
-  0% { transform: scale(0.9); opacity: 0.85; }
-  100% { transform: scale(1.15); opacity: 0; }
+  0% { transform: scale(0.92); opacity: 0.9; }
+  100% { transform: scale(1.18); opacity: 0; }
 }
 .robot-status {
-  margin-top: 18px;
+  margin-top: 16px;
   text-align: center;
-  font-size: 13px;
-  color: rgba(120,140,160,0.55);
-  min-height: 1.2em;
+  font-size: 14px;
+  color: rgba(0,220,255,0.9);
+  min-height: 1.3em;
   line-height: 1.35;
-  transition: opacity 0.6s;
-  pointer-events: none;
+  max-width: 92vw;
+  padding: 0 12px;
+  transition: opacity 0.5s;
 }
-.robot-status.hi { color: rgba(0,220,255,0.85); opacity: 1; }
-.robot-status.fade { opacity: 0; }
+.robot-status.hi { opacity: 1; color: #7aefff; }
+.robot-status.fade { opacity: 0.35; }
+.hint-line {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: rgba(120,140,160,0.7);
+  text-align: center;
+}
 
-/* invisible edge zones */
+.mic-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 20px));
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan-dim);
+  background: rgba(0, 30, 40, 0.85);
+  color: #fff;
+  font-size: 26px;
+  z-index: 28;
+  box-shadow: 0 0 20px rgba(0,220,255,0.25);
+  cursor: pointer;
+}
+.mic-fab.live {
+  background: rgba(0, 180, 220, 0.35);
+  border-color: var(--cyan);
+  animation: pulse 1s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
 .edge-right {
   position: fixed;
   top: 0; right: 0;
@@ -103,8 +132,6 @@ html, body {
   height: 22px;
   z-index: 25;
 }
-
-/* tiny LOOI-style handle — almost invisible */
 .menu-nub {
   position: fixed;
   bottom: max(10px, env(safe-area-inset-bottom));
@@ -122,7 +149,6 @@ html, body {
 }
 .menu-nub:active { background-color: rgba(0,220,255,0.35); background-clip: content-box; }
 
-/* drawer overlay */
 .scrim {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.45);
@@ -136,7 +162,6 @@ html, body {
   pointer-events: auto;
 }
 
-/* side panel like LOOI tools */
 .panel {
   position: fixed;
   top: 0;
@@ -163,7 +188,6 @@ html, body {
 .panel-title {
   font-weight: 700;
   font-size: 15px;
-  letter-spacing: 0.02em;
   color: var(--cyan);
 }
 .panel-close {
@@ -175,7 +199,6 @@ html, body {
   font-size: 16px;
   cursor: pointer;
 }
-
 .header-actions { display: flex; gap: 6px; }
 .icon-btn {
   width: 36px; height: 36px; border-radius: 10px;
@@ -288,7 +311,7 @@ html, body {
 .m-pupil { fill: #051428; }
 
 .toast {
-  position: fixed; left: 50%; bottom: 18%; transform: translateX(-50%) translateY(16px);
+  position: fixed; left: 50%; bottom: 22%; transform: translateX(-50%) translateY(16px);
   background: rgba(10,14,22,0.92); color: var(--text);
   border: 1px solid var(--cyan-dim); padding: 10px 16px; border-radius: 12px;
   font-size: 13px; opacity: 0; pointer-events: none; transition: .25s; z-index: 50;
